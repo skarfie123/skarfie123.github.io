@@ -10,12 +10,12 @@ I started playing with it in a [toy repository](https://github.com/skarfie123/gh
 - pip can install packages
 - can run a make command
 
-That all, worked fine, so I started experimenting with building a pelican site and publishing to Pages. You can find the workflow [here](https://github.com/skarfie123/skarfie123.github.io/blob/main/.github/workflows/deploy.yml). It is heavily based on the Jekyll example in structure, and the use of the first party actions:
+That all, worked fine, so I started experimenting with building a pelican site and publishing to Pages. You can find the workflow [here](https://github.com/skarfie123/skarfie123.github.io/blob/main/.github/workflows/deploy.yml). It is heavily based on the [Jekyll example](https://github.com/actions/starter-workflows/blob/main/pages/jekyll.yml) in structure, and the use of the first party actions:
 
-- [checkout](https://github.com/marketplace/actions/checkout)
-- [configure-pages](https://github.com/marketplace/actions/configure-github-pages)
-- [upload-pages-artifact](https://github.com/marketplace/actions/upload-github-pages-artifact)
-- [deploy-pages](https://github.com/marketplace/actions/deploy-github-pages-site)
+- [actions/checkout](https://github.com/marketplace/actions/checkout)
+- [actions/configure-pages](https://github.com/marketplace/actions/configure-github-pages)
+- [actions/upload-pages-artifact](https://github.com/marketplace/actions/upload-github-pages-artifact)
+- [actions/deploy-pages](https://github.com/marketplace/actions/deploy-github-pages-site)
 
 The difference is in the pelican build part. I wanted to avoid using the 3rd party pelican build actions from the marketplace, because I saw some that required generating and feeding in a GitHub token, and most were based on the old branch based Pages method. I felt there should be a simpler way, and It turned out I was right! In the end [this](https://github.com/skarfie123/skarfie123.github.io/blob/18747ba4ae8b816f274dcb8679c1136ede5c9847/.github/workflows/deploy.yml#L28-L30) was all it needed:
 
