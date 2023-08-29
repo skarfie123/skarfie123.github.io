@@ -1,3 +1,5 @@
+modified: 2023-08-29
+
 The go-to library for adding CLI functionality in python is  the built in `argparse` library. This works really well, but there is a relatively new 3rd party library called `typer` that boasts a number of improvements.
 
 Firstly, with typer, rather than configuring a parser with each argument, you can simply let the it auto-detect the configuration based on your function definition. Type hints will be used for input validation. Required arguments will become positional arguments, and optional arguments will become CLI options.
@@ -181,6 +183,43 @@ if __name__ == "__main__":
 ```
 
 In argparse the way to have multiple commands is using subparsers. Specify the `dest` parameter to store the command entered. This is significantly more boilerplate than with typer.
+
+# Reusable commands with `result_callback`
+
+Functions that you expose as a command are still reusable as functions in the rest of your code. For example you may have one command that gets a value, and another that gets and uses the value in some way. You can reuse the get command's function in your get and use command.
+
+```python
+@cli.command()
+def get():
+    # get value...
+    print(value)
+    return value
+
+@cli.command()
+def get_and_use()
+    value = get()
+    # use value...
+```
+
+However, in the get only endpoint you probably want to print the value for the user. But you might not want that for all usages of the function. In that case you can configure typer to use and print the return values of commands.
+
+```python
+import json
+from typing import Any
+
+def result_callback(result: Any):
+    if result is not None:
+        print(json.dumps(result))
+
+cli = typer.Typer(result_callback=result_callback)
+
+@cli.command()
+def get():
+    # get value...
+    return value
+```
+
+In this case, it also serializes the output to json, which is useful for processing with `jq` for example.
 
 # Other features
 
