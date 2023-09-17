@@ -1,3 +1,5 @@
+modified: 2023-09-17
+
 I recently came across [this video](https://youtu.be/g4vN2Z0JuZI?si=50XyIeCj0LvA5puI) on YouTube. It's a short tutorial on generating a Julia set fractal image in Rust. I've used rust before but never with image generation or mathematics, so it looked interesting and I followed along. By then end of the video you have some code to generate a single black and white image.
 
 I extended the code to use colour and generate an animation.
@@ -19,7 +21,7 @@ I ran it with 1000+ iterations and increased the resolution to 1080p, and the re
 
 ## Animation
 
-My next idea was to animate it. I wanted to see how the image looks "over time". Each frame would use `MAX_ITER` corresponding the frame number. In the basic first version, all it did was vary the `MAX_ITER` and generate each image independently in sequence. This turned out to be very slow, taking 2210 seconds (~37 minutes) for 360 frames. That is a long time for a 15 second video (24fps).
+My next idea was to animate it. I wanted to see how the image looks "over time". Each frame would use `MAX_ITER` corresponding the frame number. In the basic first version, all it did was vary the `MAX_ITER` and generate each image independently in sequence. This turned out to be very slow, taking 2210 seconds (~37 minutes) for 360 frames. That is a long time for a 15 second video (24fps). Later I switch to 1000 frames, but with this version, I estimate it would take around 2 hours!
 
 I also timed each frame:
 <iframe width="600" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTFf5LQnajqj0EReuj4TshAeTfe3XIF9aJUBV6LPWKiSrJ_QDXR_Fc_WjVI5T8B3yFNplbLbYFbFMbW/pubchart?oid=813755211&amp;format=interactive"></iframe>
@@ -88,6 +90,10 @@ As you can see in the previous chart, the frame times are now approximately cons
 BMP is around 5 times faster than PNG! This makes sense, as BMP is the simplest image format with no compression. With BMP the total time is only 62 seconds (~1 minute)!
 
 Though the drawback is the filesize, with each 1080p frame being 5.93MB. A single 1000 frame animation would be 6 GB. At one point I filled up my whole disk with frames for the final animations! I was playing with higher resolutions and around 10000 iterations. I found that images don't change much at iterations higher than around 1000 so I reduced it after that.
+
+## General Application
+
+An interesting point, is that much of the caching and optimisation I implemented, works because of the specific animation I was aiming for. In every frame we have the same set of coordinates. If I wanted to zoom in as the the animation progresses (like many fractal videos you'll see), these techniques would not be effective. This shows how really understanding your specific problem and managing the scope can give you helpful insights.
 
 # More Charts
 
