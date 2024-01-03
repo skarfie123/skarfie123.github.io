@@ -19,6 +19,7 @@ AUTHOR_FEED_RSS = None
 LINKS = (
     ("Source", "https://github.com/skarfie123/skarfie123.github.io"),
     ("Rahul Pai Creations", "https://rahulpaicreations.github.io/home"),
+    ("Rahul Pai Recipes", "https://recipes.rahulpai.co.uk"),
 )
 
 # Social widget
