@@ -35,3 +35,5 @@ FILENAME_METADATA = r"(?P<date>\d{4}-\d{2}-\d{2})_(?P<title>.*)"
 
 # Uncomment following line if you want document-relative URLs when developing
 # RELATIVE_URLS = True
+
+THEME = "theme"
