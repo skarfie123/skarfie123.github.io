@@ -1,2 +1,2 @@
-pelican[markdown]
-pelican-search
+pelican[markdown]==4.8.0
+pelican-search==1.1.0
